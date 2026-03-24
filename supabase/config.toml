@@ -1,0 +1,7 @@
+project_id = "yuvfiqeqccgmhpdgrcsc"
+
+[functions.allegro-auth]
+verify_jwt = false
+
+[functions.allegro-search]
+verify_jwt = false
