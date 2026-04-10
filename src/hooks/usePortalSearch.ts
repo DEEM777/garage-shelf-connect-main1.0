@@ -39,7 +39,7 @@ export function usePortalSearch() {
           try {
             if (item.platform === "amazon") {
               const urlObj = new URL(item.url);
-              urlObj.searchParams.set("tag", "TWOJ_KOD_AMAZON-21"); // Zmień na swój tag partnerski Amazon
+              urlObj.searchParams.set("tag", "detectorhub0b-20"); // Tag partnerski Amazon
               finalUrl = urlObj.toString();
             } else if (item.platform === "ebay") {
               // Standardowy link afiliacyjny eBay
