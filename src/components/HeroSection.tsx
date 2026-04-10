@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import heroBg from "@/assets/hero-bg.jpg";
 import AdvancedSearch from "./AdvancedSearch";
 

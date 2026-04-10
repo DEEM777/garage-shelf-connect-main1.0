@@ -1,14 +1,16 @@
 import { useState, useRef, useEffect } from "react";
-import { Search, Hash, Car, X } from "lucide-react";
+import { Search, Hash, Car, X, Camera, FileText } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { partsData } from "@/data/parts";
 
-type SearchMode = "name" | "oe" | "vehicle";
+type SearchMode = "name" | "oe" | "vehicle" | "photo" | "vin";
 
-const searchModes: { mode: SearchMode; label: string; icon: typeof Search; placeholder: string }[] = [
+const searchModes: { mode: SearchMode; label: string; icon: any; placeholder: string }[] = [
   { mode: "name", label: "Nazwa", icon: Search, placeholder: "np. klocki hamulcowe Brembo..." },
   { mode: "oe", label: "Nr OE / Katalogowy", icon: Hash, placeholder: "np. 34 11 6 761 244 lub P06024..." },
   { mode: "vehicle", label: "Pojazd", icon: Car, placeholder: "np. BMW E46, Honda CBR 600RR..." },
+  { mode: "photo", label: "Zdjęcie", icon: Camera, placeholder: "Wgraj zdjęcie, aby wyszukać część..." },
+  { mode: "vin", label: "VIN", icon: FileText, placeholder: "np. WBAXXXXXXXXXXXXXX..." },
 ];
 
 const AdvancedSearch = ({ onSearch }: { onSearch: (query: string) => void }) => {
@@ -21,7 +23,7 @@ const AdvancedSearch = ({ onSearch }: { onSearch: (query: string) => void }) => 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (query.length < 2) {
+    if (query.length < 2 || mode === "photo") {
       setSuggestions([]);
       return;
     }
@@ -35,6 +37,11 @@ const AdvancedSearch = ({ onSearch }: { onSearch: (query: string) => void }) => 
                  p.catalogNumber.toLowerCase().includes(q);
         case "vehicle":
           return p.compatibility.toLowerCase().includes(q);
+        case "vin":
+          // Placeholder logic for VIN - in real app, we'd decode VIN first
+          return p.compatibility.toLowerCase().includes(q.substring(0, 3));
+        default:
+          return false;
       }
     });
     setSuggestions(results);
@@ -53,8 +60,10 @@ const AdvancedSearch = ({ onSearch }: { onSearch: (query: string) => void }) => 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSearch(query);
-    setShowSuggestions(false);
+    if (mode !== "photo") {
+      onSearch(query);
+      setShowSuggestions(false);
+    }
   };
 
   const currentMode = searchModes.find((m) => m.mode === mode)!;
@@ -62,7 +71,7 @@ const AdvancedSearch = ({ onSearch }: { onSearch: (query: string) => void }) => 
   return (
     <div ref={wrapperRef} className="relative max-w-2xl mx-auto">
       {/* Mode tabs */}
-      <div className="flex gap-1 mb-3 justify-center">
+      <div className="flex flex-wrap gap-1 mb-3 justify-center">
         {searchModes.map((m) => (
           <button
             key={m.mode}
@@ -81,32 +90,40 @@ const AdvancedSearch = ({ onSearch }: { onSearch: (query: string) => void }) => 
 
       {/* Search input */}
       <form onSubmit={handleSubmit} className="relative">
-        <div className="relative group">
-          <input
-            ref={inputRef}
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
-            placeholder={currentMode.placeholder}
-            className="w-full py-4 px-6 pr-14 bg-card border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-base"
-          />
-          {query && (
+        {mode === "photo" ? (
+          <div className="w-full py-4 px-6 bg-card border border-border border-dashed rounded-lg text-center text-muted-foreground hover:bg-secondary/50 cursor-pointer transition-colors flex flex-col items-center justify-center gap-2">
+            <Camera className="w-6 h-6 mb-1 text-primary" />
+            <span className="font-semibold text-foreground">Aparat / Wgraj zdjęcie</span>
+            <span className="text-sm">Kliknij, aby wyszukać część na podstawie fotografii</span>
+          </div>
+        ) : (
+          <div className="relative group">
+            <input
+              ref={inputRef}
+              type="text"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
+              placeholder={currentMode.placeholder}
+              className="w-full py-4 px-6 pr-14 bg-card border border-border rounded-lg text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all text-base"
+            />
+            {query && (
+              <button
+                type="button"
+                onClick={() => { setQuery(""); setSuggestions([]); onSearch(""); }}
+                className="absolute right-14 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
             <button
-              type="button"
-              onClick={() => { setQuery(""); setSuggestions([]); onSearch(""); }}
-              className="absolute right-14 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+              type="submit"
+              className="absolute right-2 top-1/2 -translate-y-1/2 p-2.5 bg-primary rounded-md text-primary-foreground hover:bg-accent transition-colors"
             >
-              <X className="w-4 h-4" />
+              <Search className="w-5 h-5" />
             </button>
-          )}
-          <button
-            type="submit"
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-2.5 bg-primary rounded-md text-primary-foreground hover:bg-accent transition-colors"
-          >
-            <Search className="w-5 h-5" />
-          </button>
-        </div>
+          </div>
+        )}
       </form>
 
       {/* Autocomplete suggestions */}

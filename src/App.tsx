@@ -9,7 +9,8 @@ import PartDetail from "./pages/PartDetail";
 import Checkout from "./pages/Checkout";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import AllegroSetup from "./pages/AllegroSetup";
-import Hurtownie from "./pages/Hurtownie";
+import Wspolpraca from "./pages/Wspolpraca";
+import Install from "./pages/Install";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,7 +28,8 @@ const App = () => (
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/order-confirmation/:orderId" element={<OrderConfirmation />} />
             <Route path="/allegro-setup" element={<AllegroSetup />} />
-            <Route path="/hurtownie" element={<Hurtownie />} />
+            <Route path="/wspolpraca" element={<Wspolpraca />} />
+            <Route path="/install" element={<Install />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

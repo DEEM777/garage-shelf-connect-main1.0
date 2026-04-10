@@ -9,7 +9,7 @@ export type PortalOffer = {
   imageUrl: string | null;
   url: string;
   seller: string;
-  platform: "allegro" | "olx" | "otomoto";
+  platform: "allegro" | "olx" | "otomoto" | "amazon" | "ebay";
   condition: string;
   inStock: boolean;
 };
@@ -20,7 +20,7 @@ export function usePortalSearch() {
   const [error, setError] = useState<string | null>(null);
   const [total, setTotal] = useState(0);
 
-  const search = async (query: string, platform?: "allegro" | "olx" | "otomoto", limit = 10) => {
+  const search = async (query: string, platform?: "allegro" | "olx" | "otomoto" | "amazon" | "ebay", limit = 10) => {
     setLoading(true);
     setError(null);
     try {

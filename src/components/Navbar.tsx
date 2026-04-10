@@ -1,4 +1,4 @@
-import { Car, Menu, X, ShoppingCart, Settings } from "lucide-react";
+import { Car, Menu, X, ShoppingCart, Settings, CornerUpLeft } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { Link } from "react-router-dom";
@@ -19,8 +19,12 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:flex items-center gap-8">
-          <Link to="/hurtownie" className="text-sm text-muted-foreground hover:text-primary transition-colors">Hurtownie</Link>
-          <Link to="/" className="text-sm text-muted-foreground hover:text-primary transition-colors">Portale</Link>
+          <Link to="/" className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
+            <CornerUpLeft className="w-4 h-4" />
+            Strona główna
+          </Link>
+          <Link to="/wspolpraca" className="text-sm text-muted-foreground hover:text-primary transition-colors">Współpraca</Link>
+          <Link to="/install" className="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90 shadow-sm">Pobierz aplikację</Link>
           <Link to="/allegro-setup" className="flex items-center gap-2 text-sm text-primary font-semibold hover:text-primary/80 transition-colors">
             <Settings className="w-4 h-4" />
             Allegro
@@ -51,8 +55,12 @@ const Navbar = () => {
 
        {mobileOpen && (
         <div className="md:hidden bg-card border-b border-border px-4 py-4 flex flex-col gap-3">
-          <Link to="/hurtownie" className="text-sm text-muted-foreground hover:text-primary transition-colors">Hurtownie</Link>
-          <Link to="/" className="text-sm text-muted-foreground hover:text-primary transition-colors">Portale</Link>
+          <Link to="/" className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors">
+            <CornerUpLeft className="w-4 h-4" />
+            Strona główna
+          </Link>
+          <Link to="/wspolpraca" className="text-sm text-muted-foreground hover:text-primary transition-colors">Współpraca</Link>
+          <Link to="/install" className="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90 shadow-sm">Pobierz aplikację</Link>
           <Link to="/allegro-setup" className="flex items-center gap-2 text-sm text-primary font-semibold hover:text-primary/80 transition-colors">
             <Settings className="w-4 h-4" />
             Allegro

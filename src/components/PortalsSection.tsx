@@ -6,7 +6,7 @@ const PortalsSection = ({ searchQuery }: { searchQuery: string }) => {
   const { results, loading, error, search } = usePortalSearch();
   const [activeQuery, setActiveQuery] = useState<string>(searchQuery || "");
 
-  const handleSearch = (platform?: "allegro" | "olx" | "otomoto") => {
+  const handleSearch = (platform?: "allegro" | "olx" | "otomoto" | "amazon" | "ebay") => {
     if (activeQuery.trim()) {
       search(activeQuery, platform, 10);
     }
@@ -19,7 +19,7 @@ const PortalsSection = ({ searchQuery }: { searchQuery: string }) => {
           Szukaj w <span className="text-primary">portalach</span>
         </h2>
         <p className="text-muted-foreground text-center mb-8">
-          Porównaj ceny na Allegro, OLX i OtoMoto w jednym miejscu
+          Porównaj ceny na Allegro, OLX, OtoMoto, Amazon i eBay w jednym miejscu
         </p>
 
         <div className="mb-8 rounded-lg border border-border bg-card p-6">
@@ -35,11 +35,11 @@ const PortalsSection = ({ searchQuery }: { searchQuery: string }) => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
             <button
               onClick={() => handleSearch("allegro")}
               disabled={!activeQuery.trim() || loading}
-              className="px-4 py-2 rounded-lg bg-orange-600 text-white font-semibold hover:bg-orange-700 disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
+              className="px-4 py-2 rounded-lg bg-[#FF5A00] text-white font-semibold hover:bg-orange-700 disabled:opacity-50 transition-colors flex items-center justify-center gap-2 shadow-sm"
             >
               {loading && <Loader2 className="w-4 h-4 animate-spin" />}
               Allegro
@@ -47,7 +47,7 @@ const PortalsSection = ({ searchQuery }: { searchQuery: string }) => {
             <button
               onClick={() => handleSearch("olx")}
               disabled={!activeQuery.trim() || loading}
-              className="px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
+              className="px-4 py-2 rounded-lg bg-[#002f34] text-white font-semibold hover:bg-[#002f34]/80 disabled:opacity-50 transition-colors flex items-center justify-center gap-2 shadow-sm"
             >
               {loading && <Loader2 className="w-4 h-4 animate-spin" />}
               OLX
@@ -55,10 +55,26 @@ const PortalsSection = ({ searchQuery }: { searchQuery: string }) => {
             <button
               onClick={() => handleSearch("otomoto")}
               disabled={!activeQuery.trim() || loading}
-              className="px-4 py-2 rounded-lg bg-red-600 text-white font-semibold hover:bg-red-700 disabled:opacity-50 transition-colors flex items-center justify-center gap-2"
+              className="px-4 py-2 rounded-lg bg-[#E3000F] text-white font-semibold hover:bg-red-700 disabled:opacity-50 transition-colors flex items-center justify-center gap-2 shadow-sm"
             >
               {loading && <Loader2 className="w-4 h-4 animate-spin" />}
               OtoMoto
+            </button>
+            <button
+              onClick={() => handleSearch("amazon")}
+              disabled={!activeQuery.trim() || loading}
+              className="px-4 py-2 rounded-lg bg-[#232F3E] text-white font-semibold hover:bg-gray-800 disabled:opacity-50 transition-colors flex items-center justify-center gap-2 shadow-sm"
+            >
+              {loading && <Loader2 className="w-4 h-4 animate-spin" />}
+              Amazon
+            </button>
+            <button
+              onClick={() => handleSearch("ebay")}
+              disabled={!activeQuery.trim() || loading}
+              className="px-4 py-2 rounded-lg bg-[#0064D2] text-white font-semibold hover:bg-blue-700 disabled:opacity-50 transition-colors flex items-center justify-center gap-2 shadow-sm"
+            >
+              {loading && <Loader2 className="w-4 h-4 animate-spin" />}
+              eBay
             </button>
           </div>
 
@@ -108,3 +124,4 @@ const PortalsSection = ({ searchQuery }: { searchQuery: string }) => {
 };
 
 export default PortalsSection;
+
