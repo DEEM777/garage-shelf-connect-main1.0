@@ -42,8 +42,13 @@ export function usePortalSearch() {
               urlObj.searchParams.set("tag", "detectorhub0b-20"); // Tag partnerski Amazon
               finalUrl = urlObj.toString();
             } else if (item.platform === "ebay") {
-              // Standardowy link afiliacyjny eBay
-              finalUrl = `https://rover.ebay.com/rover/1/711-53200-19255-0/1?icep_id=114&pub=TWOJ_PUB_ID_EBAY&toolid=10001&campid=TWOJ_CAMP_ID_EBAY&customid=&mpre=${encodeURIComponent(item.url)}`;
+              const urlObj = new URL(item.url);
+              urlObj.searchParams.set("mkcid", "1");
+              urlObj.searchParams.set("mkrid", "4908-226936-19255-0");
+              urlObj.searchParams.set("campid", "5339147835"); // Twój ID Kampanii eBay
+              urlObj.searchParams.set("toolid", "10001");
+              urlObj.searchParams.set("mkevt", "1");
+              finalUrl = urlObj.toString();
             } else if (item.platform === "allegro") {
               const urlObj = new URL(item.url);
               urlObj.searchParams.set("utm_medium", "afiliacja");
