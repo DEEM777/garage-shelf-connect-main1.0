@@ -25,11 +25,7 @@ const Navbar = () => {
           </Link>
           <Link to="/wspolpraca" className="text-sm text-muted-foreground hover:text-primary transition-colors">Współpraca</Link>
           <Link to="/install" className="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90 shadow-sm">Pobierz aplikację</Link>
-          <Link to="/allegro-setup" className="flex items-center gap-2 text-sm text-primary font-semibold hover:text-primary/80 transition-colors">
-            <Settings className="w-4 h-4" />
-            Allegro
-            <Badge variant="default" className="text-xs">NOWE</Badge>
-          </Link>
+
         </div>
 
         <div className="flex items-center gap-3">
@@ -61,11 +57,7 @@ const Navbar = () => {
           </Link>
           <Link to="/wspolpraca" className="text-sm text-muted-foreground hover:text-primary transition-colors">Współpraca</Link>
           <Link to="/install" className="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90 shadow-sm">Pobierz aplikację</Link>
-          <Link to="/allegro-setup" className="flex items-center gap-2 text-sm text-primary font-semibold hover:text-primary/80 transition-colors">
-            <Settings className="w-4 h-4" />
-            Allegro
-            <Badge variant="default" className="text-xs">NOWE</Badge>
-          </Link>
+
         </div>
       )}
     </nav>
