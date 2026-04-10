@@ -45,8 +45,11 @@ export function usePortalSearch() {
               // Standardowy link afiliacyjny eBay
               finalUrl = `https://rover.ebay.com/rover/1/711-53200-19255-0/1?icep_id=114&pub=TWOJ_PUB_ID_EBAY&toolid=10001&campid=TWOJ_CAMP_ID_EBAY&customid=&mpre=${encodeURIComponent(item.url)}`;
             } else if (item.platform === "allegro") {
-              // Zmień na swój link przekierowujący w sieci afiliacyjnej (np. Convertiser/Tradedoubler)
-              finalUrl = `https://twoj-reflink.pl/allegro?id=TWOJE_ID_ALLEGRO&url=${encodeURIComponent(item.url)}`;
+              const urlObj = new URL(item.url);
+              urlObj.searchParams.set("utm_medium", "afiliacja");
+              urlObj.searchParams.set("utm_source", "ctr_2");
+              urlObj.searchParams.set("utm_campaign", "3a1a3576-f348-48fb-a5e5-dc23676c97c3"); // Twój unikalny identyfikator Allegro Share
+              finalUrl = urlObj.toString();
             }
           } catch (e) {
             // Bez zmian w przypadku błędu formatu URL
