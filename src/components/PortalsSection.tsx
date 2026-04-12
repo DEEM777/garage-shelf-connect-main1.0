@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search, Globe, Loader2, Store } from "lucide-react";
 import { usePortalSearch } from "@/hooks/usePortalSearch";
 
@@ -6,9 +6,43 @@ const PortalsSection = ({ searchQuery }: { searchQuery: string }) => {
   const { results, loading, error, search } = usePortalSearch();
   const [activeQuery, setActiveQuery] = useState<string>(searchQuery || "");
 
-  const handleSearch = (platform?: "allegro" | "olx" | "otomoto" | "amazon" | "ebay") => {
-    if (activeQuery.trim()) {
-      search(activeQuery, platform, 10);
+  // Aktualizuj pole wyszukiwania, gdy zmienia się zapytanie z sekcji Hero
+  useEffect(() => {
+    if (searchQuery) {
+      setActiveQuery(searchQuery);
+    }
+  }, [searchQuery]);
+
+  const handleSearch = (platform: "allegro" | "olx" | "otomoto" | "amazon" | "ebay") => {
+    if (!activeQuery.trim()) return;
+
+    // Najpierw odpalamy wyszukiwanie wewnętrzne (Supabase)
+    search(activeQuery, platform, 10);
+
+    // Następnie otwieramy kartę z wynikami bezpośrednio na portalu
+    const q = encodeURIComponent(activeQuery);
+    let url = "";
+
+    switch (platform) {
+      case "allegro":
+        url = `https://allegro.pl/listing?string=${q}&utm_medium=afiliacja&utm_source=ctr_2&utm_campaign=3a1a3576-f348-48fb-a5e5-dc23676c97c3`;
+        break;
+      case "olx":
+        url = `https://www.olx.pl/motoryzacja/czesci-samochodowe/q-${q}/`;
+        break;
+      case "otomoto":
+        url = `https://www.otomoto.pl/czesci?search%5Bfilter_enum_damaged%5D=0&search%5Border%5D=filter_float_price%3Aasc&search%5Bquery%5D=${q}`;
+        break;
+      case "amazon":
+        url = `https://www.amazon.pl/s?k=${q}&tag=detectorhub0b-20`;
+        break;
+      case "ebay":
+        url = `https://www.ebay.pl/sch/i.html?_nkw=${q}&mkcid=1&mkrid=4908-226936-19255-0&campid=5339147835&toolid=10001&mkevt=1`;
+        break;
+    }
+
+    if (url) {
+      window.open(url, "_blank", "noopener,noreferrer");
     }
   };
 
