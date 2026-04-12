@@ -12,6 +12,8 @@ import AllegroSetup from "./pages/AllegroSetup";
 import Wspolpraca from "./pages/Wspolpraca";
 import Install from "./pages/Install";
 import NotFound from "./pages/NotFound";
+import PWAUpdatePrompt from "./components/PWAUpdatePrompt";
+
 
 const queryClient = new QueryClient();
 
@@ -21,6 +23,8 @@ const App = () => (
       <CartProvider>
         <Toaster />
         <Sonner />
+        <PWAUpdatePrompt />
+
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />

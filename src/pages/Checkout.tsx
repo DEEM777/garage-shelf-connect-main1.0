@@ -17,7 +17,7 @@ type FormData = {
 
 type FormErrors = Partial<Record<keyof FormData, string>>;
 
-const ORDERS_KEY = "autoczesci-orders";
+const ORDERS_KEY = "auto-mechanic-orders";
 
 const Checkout = () => {
   const navigate = useNavigate();

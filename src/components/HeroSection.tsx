@@ -10,9 +10,8 @@ const HeroSection = ({ onSearch }: { onSearch: (query: string) => void }) => {
       <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
 
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
-        <h1 className="text-5xl md:text-7xl font-heading font-bold tracking-tight mb-4">
-          <span className="text-primary">Auto</span>
-          <span className="text-foreground">Części</span>
+        <h1 className="text-5xl md:text-7xl font-heading font-bold tracking-tight mb-4 text-primary">
+          Auto-Mechanic
         </h1>
         <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
           Znajdź części do samochodów i motocykli w hurtowniach i portalach internetowych

@@ -3,16 +3,40 @@ import { CheckCircle, Package, ArrowLeft } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const ORDERS_KEY = "autoczesci-orders";
+const ORDERS_KEY = "auto-mechanic-orders";
+
+interface OrderItem {
+  partId: string;
+  source: string;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
+interface Order {
+  id: string;
+  date: string;
+  total: number;
+  customer: {
+    name: string;
+    email: string;
+    street: string;
+    city: string;
+    zip: string;
+    phone: string;
+  };
+  items: OrderItem[];
+}
 
 const OrderConfirmation = () => {
   const { orderId } = useParams();
   const navigate = useNavigate();
 
-  let order: any = null;
+  let order: Order | null = null;
   try {
-    const orders = JSON.parse(localStorage.getItem(ORDERS_KEY) || "[]");
-    order = orders.find((o: any) => o.id === orderId);
+    const orders: Order[] = JSON.parse(localStorage.getItem(ORDERS_KEY) || "[]");
+    order = orders.find((o) => o.id === orderId) || null;
+
   } catch { /* ignore */ }
 
   if (!order) {
@@ -71,7 +95,7 @@ const OrderConfirmation = () => {
             </div>
 
             <div className="border-t border-border pt-4 space-y-2">
-              {order.items.map((item: any) => (
+              {order.items.map((item) => (
                 <div key={`${item.partId}-${item.source}`} className="flex justify-between text-sm">
                   <span className="text-foreground">{item.name} <span className="text-muted-foreground">x{item.quantity}</span></span>
                   <span className="font-medium text-foreground">

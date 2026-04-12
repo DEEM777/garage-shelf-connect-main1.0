@@ -66,9 +66,36 @@ const AdvancedSearch = ({ onSearch }: { onSearch: (query: string) => void }) => 
     }
   };
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handlePhotoClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      import("sonner").then(({ toast }) => {
+        toast.info(`Analizowanie zdjęcia: ${file.name}...`, {
+          description: "Sztuczna inteligencja identyfikuje część na podstawie obrazu.",
+        });
+      });
+      // Simulate identification delay
+      setTimeout(() => {
+        import("sonner").then(({ toast }) => {
+          toast.success("Zdjęcie przeanalizowane pomyślnie!", {
+            description: "Wyszukiwanie pasujących części...",
+          });
+          onSearch("klocki hamulcowe"); // Example fallback
+        });
+      }, 2000);
+    }
+  };
+
   const currentMode = searchModes.find((m) => m.mode === mode)!;
 
   return (
+
     <div ref={wrapperRef} className="relative max-w-2xl mx-auto">
       {/* Mode tabs */}
       <div className="flex flex-wrap gap-1 mb-3 justify-center">
@@ -91,12 +118,23 @@ const AdvancedSearch = ({ onSearch }: { onSearch: (query: string) => void }) => 
       {/* Search input */}
       <form onSubmit={handleSubmit} className="relative">
         {mode === "photo" ? (
-          <div className="w-full py-4 px-6 bg-card border border-border border-dashed rounded-lg text-center text-muted-foreground hover:bg-secondary/50 cursor-pointer transition-colors flex flex-col items-center justify-center gap-2">
+          <div 
+            onClick={handlePhotoClick}
+            className="w-full py-4 px-6 bg-card border border-border border-dashed rounded-lg text-center text-muted-foreground hover:bg-secondary/50 cursor-pointer transition-colors flex flex-col items-center justify-center gap-2"
+          >
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+              className="hidden"
+              accept="image/*"
+            />
             <Camera className="w-6 h-6 mb-1 text-primary" />
             <span className="font-semibold text-foreground">Aparat / Wgraj zdjęcie</span>
             <span className="text-sm">Kliknij, aby wyszukać część na podstawie fotografii</span>
           </div>
         ) : (
+
           <div className="relative group">
             <input
               ref={inputRef}

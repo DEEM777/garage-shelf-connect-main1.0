@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Search, Globe, Loader2 } from "lucide-react";
+import { Search, Globe, Loader2, Store } from "lucide-react";
 import { usePortalSearch } from "@/hooks/usePortalSearch";
 
 const PortalsSection = ({ searchQuery }: { searchQuery: string }) => {
@@ -94,20 +94,44 @@ const PortalsSection = ({ searchQuery }: { searchQuery: string }) => {
                   href={offer.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-lg border border-border p-4 bg-card hover:shadow-lg transition-all hover:border-primary/50"
+                  className="group relative flex flex-col rounded-xl border border-border bg-card p-5 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 overflow-hidden"
                 >
-                  <div className="flex items-start justify-between mb-2">
-                    <h4 className="text-sm font-semibold text-foreground flex-1">{offer.name}</h4>
-                    <span className="text-xs px-2 py-1 rounded-full bg-primary/10 text-primary font-semibold capitalize">
+                  <div className="absolute top-0 right-0 p-3">
+                    <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary/10 text-primary font-bold border border-primary/20 backdrop-blur-sm">
                       {offer.platform}
                     </span>
                   </div>
-                  <p className="text-xs text-muted-foreground mb-3">{offer.seller}</p>
-                  <p className="text-lg font-bold text-primary mb-2">
-                    {offer.price?.toLocaleString("pl-PL", { minimumFractionDigits: 2 }) || "-"} {offer.currency}
-                  </p>
-                  <p className="text-xs text-muted-foreground">{offer.inStock ? "✓ W magazynie" : "✗ Niedostępne"}</p>
+                  
+                  <div className="mb-4">
+                    <h4 className="text-sm font-heading font-bold text-foreground line-clamp-2 group-hover:text-primary transition-colors pr-16">
+                      {offer.name}
+                    </h4>
+                    <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
+                      <Store className="w-3 h-3" /> {offer.seller}
+                    </p>
+                  </div>
+
+                  <div className="mt-auto pt-4 border-t border-border/50 flex items-center justify-between">
+                    <div>
+                      <p className="text-xs text-muted-foreground mb-0.5">Cena</p>
+                      <p className="text-xl font-heading font-extrabold text-primary">
+                        {offer.price?.toLocaleString("pl-PL", { minimumFractionDigits: 2 }) || "-"} 
+                        <span className="text-xs ml-1 font-medium">{offer.currency}</span>
+                      </p>
+                    </div>
+                    
+                    <div className="text-right">
+                      <span className={`text-[10px] font-bold px-2 py-1 rounded-md ${
+                        offer.inStock 
+                          ? "bg-green-500/10 text-green-500 border border-green-500/20" 
+                          : "bg-red-500/10 text-red-500 border border-red-500/20"
+                      }`}>
+                        {offer.inStock ? "DOSTĘPNE" : "BRAK"}
+                      </span>
+                    </div>
+                  </div>
                 </a>
+
               ))}
             </div>
           </div>

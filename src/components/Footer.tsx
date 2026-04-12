@@ -6,11 +6,11 @@ const Footer = () => (
       <div className="flex items-center gap-2">
         <Car className="w-5 h-5 text-primary" />
         <span className="font-heading text-lg font-bold">
-          <span className="text-primary">Auto</span>Części
+          Auto-Mechanic
         </span>
       </div>
       <p className="text-xs text-muted-foreground">
-        © 2026 AutoCzęści — Wyszukiwarka części motoryzacyjnych
+        © 2026 Auto-Mechanic — Wyszukiwarka części motoryzacyjnych
       </p>
     </div>
   </footer>

@@ -1,7 +1,16 @@
 import { useState } from "react";
 
+export interface WholesalerResult {
+  id: string;
+  name: string;
+  price: number;
+  availability: boolean;
+  deliveryTime: string;
+}
+
 export const useHurtowniaSearch = () => {
-  const [results, setResults] = useState<any[]>([]);
+  const [results, setResults] = useState<WholesalerResult[]>([]);
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

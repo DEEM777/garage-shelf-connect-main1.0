@@ -14,7 +14,7 @@ const Navbar = () => {
         <div className="flex items-center gap-2">
           <Car className="w-6 h-6 text-primary" />
           <span className="font-heading text-xl font-bold tracking-tight">
-            <span className="text-primary">Auto</span>Części
+            Auto-Mechanic
           </span>
         </div>
 
