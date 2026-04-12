@@ -4,7 +4,7 @@ import PartCard from "./PartCard";
 import PriceCompareModal from "./PriceCompareModal";
 import FilterPanel, { type Filters, defaultFilters } from "./FilterPanel";
 import { partsData, type PartWithOffers } from "@/data/parts";
-import AllegroResults from "./AllegroResults";
+
 
 const PartsGrid = ({ searchQuery }: { searchQuery: string }) => {
   const [comparePart, setComparePart] = useState<PartWithOffers | null>(null);
@@ -85,7 +85,7 @@ const PartsGrid = ({ searchQuery }: { searchQuery: string }) => {
 
         </div>
 
-        <AllegroResults searchQuery={searchQuery} />
+
 
       </div>
 
