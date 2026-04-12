@@ -171,15 +171,24 @@ const PortalsSection = ({ searchQuery }: { searchQuery: string }) => {
           </div>
         )}
 
-        {!loading && results.length === 0 && activeQuery && !error && (
-          <div className="p-8 rounded-lg border border-border text-center bg-card text-muted-foreground">
-            Kliknij przycisk poniżej, aby wyszukać oferty w portalach
+        {error && (
+          <div className="mt-4 p-4 rounded-lg bg-primary/5 border border-primary/10 text-center">
+            <p className="text-sm text-muted-foreground">
+              Wyszukiwanie wewnętrzne jest chwilowo niedostępne. 
+              Możesz skorzystać z powyższych przycisków, aby wyszukać bezpośrednio na portalach.
+            </p>
           </div>
         )}
       </div>
     </section>
   );
 };
+
+{!loading && results.length === 0 && activeQuery && !error && (
+  <div className="p-8 rounded-lg border border-border text-center bg-card text-muted-foreground">
+    Kliknij ikonę powyżej, aby zobaczyć wyniki bezpośrednio na {activeQuery ? `portalu dla "${activeQuery}"` : "wybranym portalu"}
+  </div>
+)}
 
 export default PortalsSection;
 
