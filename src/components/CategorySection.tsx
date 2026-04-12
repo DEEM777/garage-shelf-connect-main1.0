@@ -7,6 +7,7 @@ const mainVehicleTypes = [
   { icon: Bike, label: "Motocykle", vehicleType: "motocykl" as const },
 ];
 
+const subCategories = [
   { icon: Wrench, label: "Układ hamulcowy" },
   { icon: Settings, label: "Silnik i osprzęt" },
   { icon: Gauge, label: "Zawieszenie" },
