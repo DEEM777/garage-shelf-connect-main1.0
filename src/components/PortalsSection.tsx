@@ -115,80 +115,15 @@ const PortalsSection = ({ searchQuery }: { searchQuery: string }) => {
           {error && <p className="mt-4 text-sm text-destructive">Błąd: {error}</p>}
         </div>
 
-        {results.length > 0 && (
-          <div>
-            <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-              <Globe className="w-5 h-5 text-primary" />
-              Znalezione oferty ({results.length})
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {results.map((offer) => (
-                <a
-                  key={offer.id}
-                  href={offer.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group relative flex flex-col rounded-xl border border-border bg-card p-5 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 overflow-hidden"
-                >
-                  <div className="absolute top-0 right-0 p-3">
-                    <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary/10 text-primary font-bold border border-primary/20 backdrop-blur-sm">
-                      {offer.platform}
-                    </span>
-                  </div>
-                  
-                  <div className="mb-4">
-                    <h4 className="text-sm font-heading font-bold text-foreground line-clamp-2 group-hover:text-primary transition-colors pr-16">
-                      {offer.name}
-                    </h4>
-                    <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
-                      <Store className="w-3 h-3" /> {offer.seller}
-                    </p>
-                  </div>
-
-                  <div className="mt-auto pt-4 border-t border-border/50 flex items-center justify-between">
-                    <div>
-                      <p className="text-xs text-muted-foreground mb-0.5">Cena</p>
-                      <p className="text-xl font-heading font-extrabold text-primary">
-                        {offer.price?.toLocaleString("pl-PL", { minimumFractionDigits: 2 }) || "-"} 
-                        <span className="text-xs ml-1 font-medium">{offer.currency}</span>
-                      </p>
-                    </div>
-                    
-                    <div className="text-right">
-                      <span className={`text-[10px] font-bold px-2 py-1 rounded-md ${
-                        offer.inStock 
-                          ? "bg-green-500/10 text-green-500 border border-green-500/20" 
-                          : "bg-red-500/10 text-red-500 border border-red-500/20"
-                      }`}>
-                        {offer.inStock ? "DOSTĘPNE" : "BRAK"}
-                      </span>
-                    </div>
-                  </div>
-                </a>
-
-              ))}
-            </div>
-          </div>
-        )}
-
-        {error && (
-          <div className="mt-4 p-4 rounded-lg bg-primary/5 border border-primary/10 text-center">
-            <p className="text-sm text-muted-foreground">
-              Wyszukiwanie wewnętrzne jest chwilowo niedostępne. 
-              Możesz skorzystać z powyższych przycisków, aby wyszukać bezpośrednio na portalach.
-            </p>
+        {!loading && results.length === 0 && activeQuery && !error && (
+          <div className="p-8 rounded-lg border border-border text-center bg-card text-muted-foreground">
+            Kliknij ikonę powyżej, aby zobaczyć wyniki bezpośrednio na {activeQuery ? `portalu dla "${activeQuery}"` : "wybranym portalu"}
           </div>
         )}
       </div>
     </section>
   );
 };
-
-{!loading && results.length === 0 && activeQuery && !error && (
-  <div className="p-8 rounded-lg border border-border text-center bg-card text-muted-foreground">
-    Kliknij ikonę powyżej, aby zobaczyć wyniki bezpośrednio na {activeQuery ? `portalu dla "${activeQuery}"` : "wybranym portalu"}
-  </div>
-)}
 
 export default PortalsSection;
 
