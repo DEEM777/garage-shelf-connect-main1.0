@@ -8,12 +8,12 @@ const mainVehicleTypes = [
 ];
 
 const subCategories = [
+  { icon: Flame, label: "Części tuningowe" },
+  { icon: Layout, label: "Blacharka" },
   { icon: Wrench, label: "Układ hamulcowy" },
   { icon: Settings, label: "Silnik i osprzęt" },
   { icon: Gauge, label: "Zawieszenie" },
   { icon: Zap, label: "Elektryka" },
-  { icon: Flame, label: "Części tuningowe" },
-  { icon: Layout, label: "Blacharka" },
 ];
 
 const CategorySection = () => {
