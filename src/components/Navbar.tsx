@@ -1,12 +1,37 @@
-import { Car, Menu, X, ShoppingCart, Settings, CornerUpLeft } from "lucide-react";
+import { Car, Menu, X, ShoppingCart, Settings, CornerUpLeft, Share2 } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/contexts/CartContext";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
+import { toast } from "sonner";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { totalItems, setIsOpen } = useCart();
+
+  const handleShare = async () => {
+    const shareData = {
+      title: 'Auto-Mechanic',
+      text: 'Hej! Sprawdź tę aplikację do wyszukiwania części samochodowych. Jest mega pomocna!',
+      url: window.location.origin
+    };
+
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+      } catch (err) {
+        console.log('Błąd udostępniania:', err);
+      }
+    } else {
+      // Fallback: kopiowanie do schowka
+      try {
+        await navigator.clipboard.writeText(window.location.origin);
+        toast.success("Link do aplikacji został skopiowany do schowka!");
+      } catch (err) {
+        toast.error("Nie udało się skopiować linku.");
+      }
+    }
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-md border-b border-border">
@@ -25,6 +50,13 @@ const Navbar = () => {
           </Link>
           <Link to="/wspolpraca" className="text-sm text-muted-foreground hover:text-primary transition-colors">Współpraca</Link>
           <Link to="/install" className="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90 shadow-sm">Pobierz aplikację</Link>
+          <button 
+            onClick={handleShare}
+            className="flex items-center gap-1.5 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+          >
+            <Share2 className="w-4 h-4" />
+            Poleć
+          </button>
 
         </div>
 
@@ -57,6 +89,13 @@ const Navbar = () => {
           </Link>
           <Link to="/wspolpraca" className="text-sm text-muted-foreground hover:text-primary transition-colors">Współpraca</Link>
           <Link to="/install" className="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90 shadow-sm">Pobierz aplikację</Link>
+          <button 
+            onClick={handleShare}
+            className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-primary/20 text-sm font-semibold text-primary hover:bg-primary/5 transition-colors text-left"
+          >
+            <Share2 className="w-4 h-4" />
+            Udostępnij aplikację znajomemu
+          </button>
 
         </div>
       )}
