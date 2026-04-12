@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { Search, Globe, Loader2, Store } from "lucide-react";
 import { usePortalSearch } from "@/hooks/usePortalSearch";
+import { useAnalytics } from "@/hooks/useAnalytics";
 
 const PortalsSection = ({ searchQuery }: { searchQuery: string }) => {
   const { results, loading, error, search } = usePortalSearch();
+  const { trackEvent } = useAnalytics();
   const [activeQuery, setActiveQuery] = useState<string>(searchQuery || "");
 
   // Aktualizuj pole wyszukiwania, gdy zmienia się zapytanie z sekcji Hero
@@ -18,6 +20,13 @@ const PortalsSection = ({ searchQuery }: { searchQuery: string }) => {
 
     // Najpierw odpalamy wyszukiwanie wewnętrzne (Supabase)
     search(activeQuery, platform, 10);
+
+    // Śledzenie analityki (zapisujemy, że użytkownik został przekierowany)
+    trackEvent({
+      eventType: 'portal_redirect',
+      platform,
+      searchQuery: activeQuery
+    });
 
     // Następnie otwieramy kartę z wynikami bezpośrednio na portalu
     const q = encodeURIComponent(activeQuery);
