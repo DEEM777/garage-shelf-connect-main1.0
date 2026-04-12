@@ -182,6 +182,38 @@ export const partsData: PartWithOffers[] = [
       { source: "Inter Cars", sourceType: "hurtownia", price: 105.00, inStock: true },
     ],
   },
+  {
+    id: "9",
+    name: "Sportowy układ wydechowy",
+    brand: "Akrapovič",
+    compatibility: "BMW M4 G82",
+    vehicleType: "samochód",
+    oeNumber: "Tuning-01",
+    catalogNumber: "S-BM/T/18H",
+    category: "Części tuningowe",
+    specs: { "Materiał": "Tytan", "Waga": "-35% względem serii", "Dźwięk": "Sportowy", "Certyfikat": "ECE" },
+    priceHistory: [{ date: "2026-03", price: 12500 }],
+    offers: [
+      { source: "Allegro", sourceType: "portal", price: 12499.00, inStock: true },
+      { source: "Inter Cars", sourceType: "hurtownia", price: 13200.00, inStock: true },
+    ],
+  },
+  {
+    id: "10",
+    name: "Maska silnika aluminiowa",
+    brand: "Genuine Parts",
+    compatibility: "Audi A6 C7",
+    vehicleType: "samochód",
+    oeNumber: "4G0 823 029 D",
+    catalogNumber: "AUD-BODY-01",
+    category: "Blacharka",
+    specs: { "Materiał": "Aluminium", "Kolor": "Gruntowany", "Strona": "Przód" },
+    priceHistory: [{ date: "2026-03", price: 2800 }],
+    offers: [
+      { source: "Auto Partner", sourceType: "hurtownia", price: 2750.00, inStock: true },
+      { source: "Allegro", sourceType: "portal", price: 2100.00, inStock: true },
+    ],
+  },
 ];
 
 export const allBrands = [...new Set(partsData.map((p) => p.brand))].sort();

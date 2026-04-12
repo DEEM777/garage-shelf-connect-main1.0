@@ -1,4 +1,4 @@
-import { Car, Bike, Wrench, Settings, Gauge, Zap } from "lucide-react";
+import { Car, Bike, Wrench, Settings, Gauge, Zap, Flame, Layout } from "lucide-react";
 import { useState } from "react";
 import { partsData } from "@/data/parts";
 
@@ -7,11 +7,12 @@ const mainVehicleTypes = [
   { icon: Bike, label: "Motocykle", vehicleType: "motocykl" as const },
 ];
 
-const subCategories = [
   { icon: Wrench, label: "Układ hamulcowy" },
   { icon: Settings, label: "Silnik i osprzęt" },
   { icon: Gauge, label: "Zawieszenie" },
   { icon: Zap, label: "Elektryka" },
+  { icon: Flame, label: "Części tuningowe" },
+  { icon: Layout, label: "Blacharka" },
 ];
 
 const CategorySection = () => {
