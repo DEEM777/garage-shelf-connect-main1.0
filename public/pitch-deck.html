@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="pl">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title>Auto-Mechanic - Pitch Deck</title>
+		
+		<!-- Reveal.js core CSS -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reset.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+		
+		<!-- Theme (Night - ciemny, pasuje do aplikacji) -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/night.min.css">
+		
+		<style>
+			/* Własne style dopasowane do brandingu Auto-Mechanic */
+			.reveal h1, .reveal h2, .reveal h3 { 
+				color: #f97316; /* Główny pomarańczowy kolor aplikacji */
+				text-transform: none; 
+				font-weight: bold;
+			}
+			.reveal ul { 
+				font-size: 0.85em; 
+				line-height: 1.5; 
+			}
+			.reveal li {
+				margin-bottom: 15px;
+			}
+			.reveal .highlight { 
+				color: #f97316; 
+				font-weight: bold; 
+			}
+			.reveal .muted {
+				color: #888;
+				font-size: 0.7em;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				
+				<!-- Slajd 1 -->
+				<section>
+					<h2 style="font-size: 2.5em;">Auto-Mechanic</h2>
+					<h3>Twój łącznik z rynkiem części</h3>
+					<p style="font-size: 0.9em; margin-top: 30px;">Najszybsza aplikacja PWA agregująca oferty dla mechaników i kierowców.</p>
+					<br>
+					<p class="muted">Kontakt: DEEM7@OP.PL</p>
+				</section>
+
+				<!-- Slajd 2 -->
+				<section>
+					<h2>Problem: Rozproszony rynek</h2>
+					<p style="font-size: 0.8em; text-align: left; color: #ccc;">Rynek części motoryzacyjnych jest gigantyczny, ale wciąż mocno nieefektywny.</p>
+					<ul style="margin-top: 20px;">
+						<li><span class="highlight">Dla mechaników:</span> Wyszukiwanie wymaga żonglowania wieloma portalami (Allegro, sklepy). Olbrzymia strata cennego czasu.</li>
+						<li><span class="highlight">Dla hurtowni:</span> Trudno konkurować z gigantami. Wysokie prowizje platform zjadają marże.</li>
+						<li><span class="highlight">Koszty logistyczne:</span> Plaga zwrotów nietrafionych części od klientów detalicznych niszczy zyskowność sklepów.</li>
+					</ul>
+				</section>
+
+				<!-- Slajd 3 -->
+				<section>
+					<h2>Rozwiązanie</h2>
+					<p style="font-size: 0.8em; text-align: left; color: #ccc;">Rozwiązujemy te problemy w jednym centralnym punkcie:</p>
+					<ul>
+						<li><strong>Centralna Wyszukiwarka:</strong> Jedno zapytanie przeszukuje rynki zewnętrzne oraz zasoby zintegrowanych hurtowni.</li>
+						<li><strong>Technologia PWA:</strong> Aplikacja działa bezpośrednio na telefonie w warsztacie, bez pobierania i instalowania.</li>
+						<li><strong>Lokalne Integracje B2B:</strong> Bezpośrednie API REST dla hurtowni, prezentujące stany magazynowe mechanikom "na żywo".</li>
+					</ul>
+				</section>
+
+				<!-- Slajd 4 -->
+				<section>
+					<h2>Potencjał Rynku</h2>
+					<ul>
+						<li>W Polsce zarejestrowanych jest ponad <strong class="highlight">26 milionów pojazdów</strong>.</li>
+						<li>Rynek części stale rośnie – starzejąca się flota wymaga częstszych interwencji.</li>
+						<li>Warsztaty i entuzjaści całkowicie przenoszą poszukiwania części do internetu.</li>
+						<li><strong>Nasz cel:</strong> Być pierwszą aplikacją, którą mechanik włącza po diagnozie usterki.</li>
+					</ul>
+				</section>
+
+				<!-- Slajd 5 -->
+				<section>
+					<h2>Jak to działa? (User Flow)</h2>
+					<ul>
+						<li><strong>Szybki wybór:</strong> Przejrzysty podział na samochody/motocykle i dokładne kategorie.</li>
+						<li><strong>Błyskawiczne filtrowanie:</strong> Szukaj po nazwach lub numerach części bez opóźnień.</li>
+						<li><strong>Inteligentne Przekierowania:</strong> Jeśli towaru nie ma w hurtowni partnera, jednym kliknięciem przenosimy do Allegro lub Amazon z wpisanym już hasłem.</li>
+					</ul>
+				</section>
+
+				<!-- Slajd 6 -->
+				<section>
+					<h2>Wartość dla Hurtowni (B2B)</h2>
+					<ul>
+						<li><strong>Docelowy klient:</strong> Docierasz prosto do ekranu telefonu warsztatu.</li>
+						<li><strong>Eliminacja zwrotów:</strong> Profesjonaliści zamawiają konkretne podzespoły, minimalizując błędy klienta detalicznego.</li>
+						<li><strong>Brak ogromnych prowizji:</strong> Omijasz standardowe, dwucyfrowe prowizje gigantów e-commerce.</li>
+						<li><strong>Lokalna Analityka:</strong> Raporty o tym, czego najczęściej szukają mechanicy w Twoim regionie.</li>
+					</ul>
+				</section>
+
+				<!-- Slajd 7 -->
+				<section>
+					<h2>Model Biznesowy</h2>
+					<ul>
+						<li><strong>Model SaaS (Abonament):</strong> Stała miesięczna opłata dla hurtowni za integrację API i wyższą widoczność.</li>
+						<li><strong>Lead Generation:</strong> Drobna opłata za przekazanie klienta gotowego do zakupu prosto do koszyka partnera.</li>
+						<li><strong>Sponsoring Kategorii:</strong> Promowanie marek premium producentów części w wynikach wyszukiwania.</li>
+					</ul>
+				</section>
+
+				<!-- Slajd 8 -->
+				<section>
+					<h2>Przewaga Konkurencyjna</h2>
+					<ul>
+						<li><strong>Zwinność:</strong> W przeciwieństwie do powolnych systemów hurtowni, jesteśmy stworzeni pod User Experience (UX).</li>
+						<li><strong>Nowoczesny Stack:</strong> React, Vite, Tailwind – pozwala na błyskawiczny rozwój i tanie utrzymanie przy ogromnym ruchu.</li>
+						<li><strong>Niezależność:</strong> Jesteśmy technologicznym pomostem, nie własną hurtownią – nie konkurujemy z naszymi partnerami.</li>
+					</ul>
+				</section>
+
+				<!-- Slajd 9 -->
+				<section>
+					<h2>Czego szukamy?</h2>
+					<div style="margin-top: 30px; text-align: left; padding: 0 40px;">
+						<p><span class="highlight">Od Inwestorów:</span><br>
+						<span style="font-size: 0.8em; color: #ccc;">Finansowania w rundzie Seed na działania marketingowe w warsztatach oraz zatrudnienie sprzedawców B2B do integracji kolejnych hurtowni.</span></p>
+						
+						<p><span class="highlight">Od Partnerów (Hurtowni):</span><br>
+						<span style="font-size: 0.8em; color: #ccc;">Poszukujemy Partnerów Pilotażowych, którzy udostępnią nam API do swoich magazynów w zamian za dożywotnią, darmową ekspozycję w regionie.</span></p>
+					</div>
+				</section>
+
+				<!-- Slajd 10 -->
+				<section>
+					<h2>Zbudujmy to razem.</h2>
+					<p style="font-size: 0.9em; margin-bottom: 40px;">Zrewolucjonizujmy sposób, w jaki mechanicy kupują części.</p>
+					<p class="highlight" style="font-size: 1.5em; margin-bottom: 20px;">Dziękuję za uwagę!</p>
+					<p class="muted">Kontakt: DEEM7@OP.PL</p>
+				</section>
+
+			</div>
+		</div>
+
+		<!-- Skrypty Reveal.js -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+		<script>
+			// Dodajemy tło mechaniczne do każdego slajdu (klucze, zębatki - plik ze źródła aplikacji)
+			document.querySelectorAll('.slides > section').forEach((section, index) => {
+				section.setAttribute('data-background-image', './hero-bg.jpg');
+				// Pierwszy i ostatni slajd mają wyraźniejsze tło, pozostałe bardziej wygaszone, aby tekst był czytelny
+				if (index === 0 || index === document.querySelectorAll('.slides > section').length - 1) {
+					section.setAttribute('data-background-opacity', '0.25');
+				} else {
+					section.setAttribute('data-background-opacity', '0.08');
+				}
+			});
+
+			// Inicjalizacja biblioteki
+			Reveal.initialize({
+				hash: true,
+				transition: 'slide', // Styl przejść: none/fade/slide/convex/concave/zoom
+				controls: true,
+				progress: true,
+				center: true,
+			});
+		</script>
+	</body>
+</html>
