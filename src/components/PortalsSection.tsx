@@ -1,68 +1,34 @@
 import { useState, useEffect } from "react";
-import { Search, Globe, Loader2, Store } from "lucide-react";
-import { usePortalSearch } from "@/hooks/usePortalSearch";
-import { useAnalytics } from "@/hooks/useAnalytics";
+import { Search } from "lucide-react";
 
 const PortalsSection = ({ searchQuery }: { searchQuery: string }) => {
-  const { results, loading, error, search } = usePortalSearch();
-  const { trackEvent } = useAnalytics();
   const [activeQuery, setActiveQuery] = useState<string>(searchQuery || "");
 
-  // Aktualizuj pole wyszukiwania, gdy zmienia się zapytanie z sekcji Hero
+  // Aktualizuj pole wyszukiwania, gdy zmienia się zapytanie z głównej wyszukiwarki
   useEffect(() => {
     if (searchQuery) {
       setActiveQuery(searchQuery);
     }
   }, [searchQuery]);
 
-  const handleSearch = (platform: "allegro" | "olx" | "otomoto" | "amazon" | "ebay") => {
-    if (!activeQuery.trim()) return;
+  const q = encodeURIComponent(activeQuery.trim() || "");
 
-    // Najpierw odpalamy wyszukiwanie wewnętrzne (Supabase)
-    search(activeQuery, platform, 10);
-
-    // Śledzenie analityki (zapisujemy, że użytkownik został przekierowany)
-    trackEvent({
-      eventType: 'portal_redirect',
-      platform,
-      searchQuery: activeQuery
-    });
-
-    // Następnie otwieramy kartę z wynikami bezpośrednio na portalu
-    const q = encodeURIComponent(activeQuery);
-    let url = "";
-
-    switch (platform) {
-      case "allegro":
-        url = `https://allegro.pl/listing?string=${q}&utm_medium=afiliacja&utm_source=ctr_2&utm_campaign=3a1a3576-f348-48fb-a5e5-dc23676c97c3`;
-        break;
-      case "olx":
-        url = `https://www.olx.pl/motoryzacja/czesci-samochodowe/q-${q}/`;
-        break;
-      case "otomoto":
-        url = `https://www.otomoto.pl/czesci?search%5Bfilter_enum_damaged%5D=0&search%5Border%5D=filter_float_price%3Aasc&search%5Bquery%5D=${q}`;
-        break;
-      case "amazon":
-        url = `https://www.amazon.pl/s?k=${q}&tag=detectorhub0b-20`;
-        break;
-      case "ebay":
-        url = `https://www.ebay.pl/sch/i.html?_nkw=${q}&mkcid=1&mkrid=4908-226936-19255-0&campid=5339147835&toolid=10001&mkevt=1`;
-        break;
-    }
-
-    if (url) {
-      window.open(url, "_blank", "noopener,noreferrer");
-    }
-  };
+  const portals = [
+    { name: "Allegro", color: "#FF5A00", url: `https://allegro.pl/listing?string=${q}` },
+    { name: "OLX", color: "#002f34", url: `https://www.olx.pl/motoryzacja/czesci-samochodowe/q-${q}/` },
+    { name: "OtoMoto", color: "#E3000F", url: `https://www.otomoto.pl/czesci?search%5Bfilter_enum_damaged%5D=0&search%5Border%5D=filter_float_price%3Aasc&search%5Bquery%5D=${q}` },
+    { name: "Amazon", color: "#232F3E", url: `https://www.amazon.pl/s?k=${q}` },
+    { name: "eBay", color: "#0064D2", url: `https://www.ebay.pl/sch/i.html?_nkw=${q}` },
+  ];
 
   return (
-    <section className="py-16 px-4 bg-secondary/50">
+    <section className="py-16 px-4 bg-secondary/50" id="portale">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl md:text-4xl font-heading text-center mb-2">
           Szukaj w <span className="text-primary">portalach</span>
         </h2>
         <p className="text-muted-foreground text-center mb-8">
-          Porównaj ceny na Allegro, OLX, OtoMoto, Amazon i eBay w jednym miejscu
+          Szybkie przekierowanie do największych serwisów ogłoszeniowych
         </p>
 
         <div className="mb-8 rounded-lg border border-border bg-card p-6">
@@ -73,66 +39,35 @@ const PortalsSection = ({ searchQuery }: { searchQuery: string }) => {
                 value={activeQuery}
                 onChange={(e) => setActiveQuery(e.target.value)}
                 placeholder="Wpisz nazwę części (np. klocki hamulcowe)..."
-                className="w-full py-3 pl-9 pr-3 rounded-lg border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/40"
+                className="w-full py-3 pl-10 pr-3 rounded-lg border border-border bg-background text-sm focus:outline-none focus:ring-2 focus:ring-primary/40"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-            <button
-              onClick={() => handleSearch("allegro")}
-              disabled={!activeQuery.trim() || loading}
-              className="px-4 py-2 rounded-lg bg-[#FF5A00] text-white font-semibold hover:bg-orange-700 disabled:opacity-50 transition-colors flex items-center justify-center gap-2 shadow-sm"
-            >
-              {loading && <Loader2 className="w-4 h-4 animate-spin" />}
-              Allegro
-            </button>
-            <button
-              onClick={() => handleSearch("olx")}
-              disabled={!activeQuery.trim() || loading}
-              className="px-4 py-2 rounded-lg bg-[#002f34] text-white font-semibold hover:bg-[#002f34]/80 disabled:opacity-50 transition-colors flex items-center justify-center gap-2 shadow-sm"
-            >
-              {loading && <Loader2 className="w-4 h-4 animate-spin" />}
-              OLX
-            </button>
-            <button
-              onClick={() => handleSearch("otomoto")}
-              disabled={!activeQuery.trim() || loading}
-              className="px-4 py-2 rounded-lg bg-[#E3000F] text-white font-semibold hover:bg-red-700 disabled:opacity-50 transition-colors flex items-center justify-center gap-2 shadow-sm"
-            >
-              {loading && <Loader2 className="w-4 h-4 animate-spin" />}
-              OtoMoto
-            </button>
-            <button
-              onClick={() => handleSearch("amazon")}
-              disabled={!activeQuery.trim() || loading}
-              className="px-4 py-2 rounded-lg bg-[#232F3E] text-white font-semibold hover:bg-gray-800 disabled:opacity-50 transition-colors flex items-center justify-center gap-2 shadow-sm"
-            >
-              {loading && <Loader2 className="w-4 h-4 animate-spin" />}
-              Amazon
-            </button>
-            <button
-              onClick={() => handleSearch("ebay")}
-              disabled={!activeQuery.trim() || loading}
-              className="px-4 py-2 rounded-lg bg-[#0064D2] text-white font-semibold hover:bg-blue-700 disabled:opacity-50 transition-colors flex items-center justify-center gap-2 shadow-sm"
-            >
-              {loading && <Loader2 className="w-4 h-4 animate-spin" />}
-              eBay
-            </button>
+            {portals.map((portal) => (
+              <a
+                key={portal.name}
+                href={activeQuery.trim() ? portal.url : "#"}
+                target={activeQuery.trim() ? "_blank" : undefined}
+                rel="noreferrer"
+                className={`px-4 py-2.5 rounded-lg text-white font-semibold text-center transition-all shadow-sm ${
+                  !activeQuery.trim() ? "opacity-30 cursor-not-allowed pointer-events-none" : "hover:brightness-110 active:scale-95"
+                }`}
+                style={{ backgroundColor: portal.color }}
+              >
+                {portal.name}
+              </a>
+            ))}
           </div>
-
-          {error && <p className="mt-4 text-sm text-destructive">Błąd: {error}</p>}
         </div>
 
-        {!loading && results.length === 0 && activeQuery && !error && (
-          <div className="p-8 rounded-lg border border-border text-center bg-card text-muted-foreground">
-            Kliknij ikonę powyżej, aby zobaczyć wyniki bezpośrednio na {activeQuery ? `portalu dla "${activeQuery}"` : "wybranym portalu"}
-          </div>
-        )}
+        <div className="p-8 rounded-lg border border-border text-center bg-background/50 text-muted-foreground italic text-sm">
+          Bezpieczne, bezpośrednie linki do wyników wyszukiwania (brak śledzenia i zapytań w tle).
+        </div>
       </div>
     </section>
   );
 };
 
 export default PortalsSection;
-

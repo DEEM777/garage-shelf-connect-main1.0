@@ -48,7 +48,6 @@ const Navbar = () => {
             <CornerUpLeft className="w-4 h-4" />
             Strona główna
           </Link>
-          <Link to="/wspolpraca" className="text-sm text-muted-foreground hover:text-primary transition-colors">Współpraca</Link>
           <Link to="/install" className="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90 shadow-sm">Pobierz aplikację</Link>
           <button 
             onClick={handleShare}
@@ -87,7 +86,6 @@ const Navbar = () => {
             <CornerUpLeft className="w-4 h-4" />
             Strona główna
           </Link>
-          <Link to="/wspolpraca" className="text-sm text-muted-foreground hover:text-primary transition-colors">Współpraca</Link>
           <Link to="/install" className="inline-flex items-center justify-center rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90 shadow-sm">Pobierz aplikację</Link>
           <button 
             onClick={handleShare}

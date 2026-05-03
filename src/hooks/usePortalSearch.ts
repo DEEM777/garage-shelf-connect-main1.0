@@ -21,66 +21,12 @@ export function usePortalSearch() {
   const [total, setTotal] = useState(0);
 
   const search = async (query: string, platform?: "allegro" | "olx" | "otomoto" | "amazon" | "ebay", limit = 10) => {
-    setLoading(true);
-    setError(null);
-    try {
-      // Próba wywołania funkcji Supabase. 
-      // Ignorujemy błędy "non-2xx", bo użytkownik i tak jest przekierowywany do portalu zewnętrznego.
-      const { data, error: fnError } = await supabase.functions.invoke("portal-search", {
-        body: { query, platform, limit },
-      });
-
-      if (fnError) {
-        console.warn("Edge Function portal-search is not available. Using external redirection fallback.");
-        setResults([]);
-        return;
-      }
-
-      if (data?.error) {
-        console.warn("Portal search API error:", data.error);
-        setResults([]);
-        return;
-      }
-
-      // Funkcja dodająca linki afiliacyjne
-      const applyAffiliateLinks = (items: PortalOffer[]): PortalOffer[] => {
-        return items.map((item) => {
-          let finalUrl = item.url;
-          try {
-            if (item.platform === "amazon") {
-              const urlObj = new URL(item.url);
-              urlObj.searchParams.set("tag", "detectorhub0b-20");
-              finalUrl = urlObj.toString();
-            } else if (item.platform === "ebay") {
-              const urlObj = new URL(item.url);
-              urlObj.searchParams.set("mkcid", "1");
-              urlObj.searchParams.set("mkrid", "4908-226936-19255-0");
-              urlObj.searchParams.set("campid", "5339147835");
-              urlObj.searchParams.set("toolid", "10001");
-              urlObj.searchParams.set("mkevt", "1");
-              finalUrl = urlObj.toString();
-            } else if (item.platform === "allegro") {
-              const urlObj = new URL(item.url);
-              urlObj.searchParams.set("utm_medium", "afiliacja");
-              urlObj.searchParams.set("utm_source", "ctr_2");
-              urlObj.searchParams.set("utm_campaign", "3a1a3576-f348-48fb-a5e5-dc23676c97c3");
-              finalUrl = urlObj.toString();
-            }
-          } catch (e) { /* ignore */ }
-          return { ...item, url: finalUrl };
-        });
-      };
-
-      setResults(applyAffiliateLinks(data?.items || []));
-      setTotal(data?.total || 0);
-    } catch (err: unknown) {
-      // Ciche wygaszenie błędu - w logach deweloperskich wciąż będzie widoczny, ale nie przerwie działania aplikacji
-      console.warn("Search fallback activated due to:", err);
-      setError(null); 
-      setResults([]);
-    } finally {
-      setLoading(false);
-    }
+    // Funkcja wyszukiwania w tle została wyłączona, aby zapobiec blokadom "nienaturalnego ruchu" na portalach.
+    // Teraz polegamy wyłącznie na bezpośrednim przekierowaniu użytkownika do wybranego portalu.
+    setResults([]);
+    setTotal(0);
+    setLoading(false);
+    return;
   };
 
   return { results, loading, error, total, search };

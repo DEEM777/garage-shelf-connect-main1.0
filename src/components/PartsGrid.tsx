@@ -5,7 +5,6 @@ import PriceCompareModal from "./PriceCompareModal";
 import FilterPanel, { type Filters, defaultFilters } from "./FilterPanel";
 import { partsData, type PartWithOffers } from "@/data/parts";
 
-
 const PartsGrid = ({ searchQuery }: { searchQuery: string }) => {
   const [comparePart, setComparePart] = useState<PartWithOffers | null>(null);
   const [filters, setFilters] = useState<Filters>(defaultFilters);
@@ -82,11 +81,7 @@ const PartsGrid = ({ searchQuery }: { searchQuery: string }) => {
               </div>
             )}
           </div>
-
         </div>
-
-
-
       </div>
 
       {comparePart && (

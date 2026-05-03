@@ -9,9 +9,11 @@ export type AnalyticsEvent = {
 
 export const useAnalytics = () => {
   const trackEvent = async (event: AnalyticsEvent) => {
+    // Analityka tymczasowo wyłączona w celu wyeliminowania blokad "nienaturalnego ruchu".
+    /*
     try {
       const { error } = await supabase
-        .from('click_analytics' as any) // 'as any' because types might not be updated yet
+        .from('click_analytics' as any)
         .insert([{
           event_type: event.eventType,
           platform: event.platform,
@@ -23,9 +25,9 @@ export const useAnalytics = () => {
         console.warn('Analytics tracking error:', error.message);
       }
     } catch (err) {
-      // Silent fail to not disrupt user experience
       console.warn('Analytics fallback silent fail:', err);
     }
+    */
   };
 
   return { trackEvent };

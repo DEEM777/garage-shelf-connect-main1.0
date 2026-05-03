@@ -17,7 +17,15 @@ const PartCard = ({ part, onCompare, onDetails }: Props) => {
   return (
     <div className="gradient-card border border-border rounded-lg overflow-hidden hover:border-primary/40 transition-all group">
       <button onClick={onDetails} className="w-full aspect-[4/3] bg-secondary flex items-center justify-center overflow-hidden cursor-pointer relative">
-        <div className="text-muted-foreground text-sm">Brak zdjęcia</div>
+        {part.image ? (
+          <img
+            src={part.image}
+            alt={part.name}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+        ) : (
+          <div className="text-muted-foreground text-sm">Brak zdjęcia</div>
+        )}
         <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
           <Eye className="w-6 h-6 text-primary" />
         </div>

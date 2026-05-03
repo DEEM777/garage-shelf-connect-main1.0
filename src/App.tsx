@@ -9,7 +9,7 @@ import PartDetail from "./pages/PartDetail";
 import Checkout from "./pages/Checkout";
 import OrderConfirmation from "./pages/OrderConfirmation";
 import AllegroSetup from "./pages/AllegroSetup";
-import Wspolpraca from "./pages/Wspolpraca";
+
 import Install from "./pages/Install";
 import NotFound from "./pages/NotFound";
 import PWAUpdatePrompt from "./components/PWAUpdatePrompt";
@@ -32,7 +32,7 @@ const App = () => (
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/order-confirmation/:orderId" element={<OrderConfirmation />} />
             <Route path="/allegro-setup" element={<AllegroSetup />} />
-            <Route path="/wspolpraca" element={<Wspolpraca />} />
+
             <Route path="/install" element={<Install />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
